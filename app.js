@@ -46,33 +46,40 @@ const orange= new Fruit ({
     rating:12,
     review:"pretty solid as fruit "
 });
-
-Fruit.insertMany([{orange},{banana}],function(err){
+// this for inserting menay fruits
+/*
+Fruit.insertMany([orange,banana],function(err){
     if(err){
         console.log(err)
     }else{
         console.log('succeded')
     }
-})
+})*/
 const people = new People({
     name:"mohamed elshahat ",
     age : "20"
 })
 
- // fruit.save();
+  // fruit.save();
+
   people.save();
 /* coonect to database or create one like the following fruitdb */
 
   /* this code will print the fruits inside your console 
   and then you can deal with the data as you want  */
-  const findDocuments = function(db, callback) {
-    // Get the documents collection
-    const collection = db.collection('fruits');
-    // Find some documents
-    collection.find({}).toArray(function(err, fruits) {
-      assert.equal(err, null);
-      console.log("Found the following records");
-      console.log(fruits)
-      callback(fruits);
-    });
-  }
+  Fruit.find(function(err,fruits){
+      if(err){
+          console.log(err);
+      }else{
+            // close the connection once you done 
+          mongoose.connection.close(); 
+        
+const fruitNames =   fruits.map(fruit => fruit.name) 
+console.log(fruitNames)      
+      }
+      //another way to do this 
+    /*  fruits.forEach(function(fruit){
+          console.log(fruit.name);
+
+      })*/
+  })
